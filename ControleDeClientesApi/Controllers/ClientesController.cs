@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ControleDeClientesApi.Data;
+﻿using ControleDeClientesApi.Data;
 using ControleDeClientesApi.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ControleDeClientesApi.Controllers
@@ -9,16 +9,15 @@ namespace ControleDeClientesApi.Controllers
     [ApiController]
     public class ClientesController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public ClientesController(AppDbContext context)
+        public ClientesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // POST: api/Clientes
         [HttpPost]
-        public async Task<ActionResult<Cliente>> PostCliente(Cliente cliente)
+        public async Task<ActionResult<Cliente>> PostCliente(Cliente? cliente)
         {
             _context.Clientes.Add(cliente);
             await _context.SaveChangesAsync();
@@ -26,11 +25,10 @@ namespace ControleDeClientesApi.Controllers
             return CreatedAtAction("GetCliente", new { id = cliente.Id }, cliente);
         }
 
-        // GET: api/Clientes/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Cliente>> GetCliente(int id)
         {
-            var cliente = await _context.Clientes.Include(c => c.Cobrancas).FirstOrDefaultAsync(c => c.Id == id);
+            var cliente = await _context.Clientes.Include(c => c!.Cobrancas).FirstOrDefaultAsync(c => c != null && c.Id == id);
 
             if (cliente == null)
             {

@@ -1,7 +1,7 @@
 ﻿using ControleDeClientesApi.Models;
 using FluentValidation;
 
-namespace ControleDeClientesApi.Validators
+namespace ControleDeClientesApi.Controllers
 {
     public class UsuarioValidator : AbstractValidator<Usuario>
     {

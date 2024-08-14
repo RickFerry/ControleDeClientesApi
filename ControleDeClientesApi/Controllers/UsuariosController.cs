@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ControleDeClientesApi.Data;
+﻿using ControleDeClientesApi.Data;
 using ControleDeClientesApi.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ControleDeClientesApi.Controllers
@@ -9,9 +9,9 @@ namespace ControleDeClientesApi.Controllers
     [ApiController]
     public class UsuariosController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public UsuariosController(AppDbContext context)
+        public UsuariosController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -30,7 +30,9 @@ namespace ControleDeClientesApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Usuario>> GetUsuario(int id)
         {
-            var usuario = await _context.Usuarios.Include(u => u.Clientes).FirstOrDefaultAsync(u => u.Id == id);
+            var usuario = await _context.Usuarios
+                .Include<Usuario, ICollection<Cliente>>(u => u.Clientes)
+                .FirstOrDefaultAsync(u => u.Id == id);
 
             if (usuario == null)
             {
@@ -38,6 +40,20 @@ namespace ControleDeClientesApi.Controllers
             }
 
             return usuario;
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<Usuario>> Login([FromBody] Usuario loginRequest)
+        {
+            var usuario = await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.Email == loginRequest.Email && u.Senha == loginRequest.Senha);
+
+            if (usuario == null)
+            {
+                return Unauthorized("Email ou senha incorretos.");
+            }
+
+            return Ok(usuario);
         }
     }
 }
