@@ -1,15 +1,16 @@
+
 ---
 
 # Controle de Clientes API
 
-O **Controle de Clientes API** é um projeto desenvolvido em **Java** com o framework **Spring Boot** para gerenciamento de informações de clientes. Ele oferece funcionalidades como adicionar, atualizar, listar e excluir clientes. Abaixo estão os detalhes sobre o projeto:
+O **Controle de Clientes API** é uma aplicação desenvolvida em **Java** com o framework **Spring Boot** para o gerenciamento de informações de clientes. Ele oferece funcionalidades como adicionar, atualizar, listar e excluir clientes. Abaixo estão os detalhes sobre o projeto:
 
 ## Funcionalidades
 
 1. **Adicionar um novo cliente**:
-   - Rota: `POST /clientes`
-   - Corpo da requisição: JSON contendo os dados do cliente (nome, e-mail, telefone etc.)
-   - Exemplo:
+   - **Rota**: `POST /clientes`
+   - **Corpo da requisição**: JSON contendo os dados do cliente (nome, e-mail, telefone, etc.)
+   - **Exemplo**:
      ```json
      {
        "nome": "João Silva",
@@ -19,10 +20,10 @@ O **Controle de Clientes API** é um projeto desenvolvido em **Java** com o fram
      ```
 
 2. **Atualizar informações de um cliente existente**:
-   - Rota: `PUT /clientes/{id}`
-   - Parâmetro de rota: `id` (ID do cliente)
-   - Corpo da requisição: JSON com os dados atualizados
-   - Exemplo:
+   - **Rota**: `PUT /clientes/{id}`
+   - **Parâmetro de rota**: `id` (ID do cliente)
+   - **Corpo da requisição**: JSON com os dados atualizados
+   - **Exemplo**:
      ```json
      {
        "nome": "João da Silva",
@@ -31,12 +32,12 @@ O **Controle de Clientes API** é um projeto desenvolvido em **Java** com o fram
      ```
 
 3. **Listar todos os clientes**:
-   - Rota: `GET /clientes`
-   - Retorna uma lista de todos os clientes cadastrados
+   - **Rota**: `GET /clientes`
+   - **Resposta**: Retorna uma lista de todos os clientes cadastrados
 
 4. **Excluir um cliente**:
-   - Rota: `DELETE /clientes/{id}`
-   - Parâmetro de rota: `id` (ID do cliente a ser excluído)
+   - **Rota**: `DELETE /clientes/{id}`
+   - **Parâmetro de rota**: `id` (ID do cliente a ser excluído)
 
 ## Tecnologias Utilizadas
 
